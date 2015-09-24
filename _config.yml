@@ -7,6 +7,6 @@ domain_name: 'http://btonylee.github.io'
 baseurl: "/" # the subpath of your site, e.g. /blog/
 # Details for the RSS feed generator
 url: "http://btonylee.github.io" # the base hostname & protocol for your site
-author:         'btony'
-name:          'Tony@博客'
+author:         'tuo.li'
+name:          '嗖~世界'
 exclude: ['vendor', 'README.md', 'Gemfile', 'Gemfile.lock', 'config.ru', 'unicorn.rb', 'Procfile']

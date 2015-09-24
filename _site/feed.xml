@@ -3,10 +3,10 @@
   <channel>
     <title></title>
     <description></description>
-    <link>http://jekyll-demo.coding.io//</link>
-    <atom:link href="http://jekyll-demo.coding.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 22 Dec 2014 09:57:15 +0800</pubDate>
-    <lastBuildDate>Mon, 22 Dec 2014 09:57:15 +0800</lastBuildDate>
+    <link>http://btonylee.github.io//</link>
+    <atom:link href="http://btonylee.github.io//feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Wed, 23 Sep 2015 23:28:42 +0800</pubDate>
+    <lastBuildDate>Wed, 23 Sep 2015 23:28:42 +0800</lastBuildDate>
     <generator>Jekyll v2.5.2</generator>
     
       <item>
@@ -14,8 +14,8 @@
         <description>&lt;p&gt;test&lt;/p&gt;
 </description>
         <pubDate>Fri, 12 Dec 2014 00:00:00 +0800</pubDate>
-        <link>http://jekyll-demo.coding.io//2014/12/12/test.html</link>
-        <guid isPermaLink="true">http://jekyll-demo.coding.io//2014/12/12/test.html</guid>
+        <link>http://btonylee.github.io//2014/12/12/test.html</link>
+        <guid isPermaLink="true">http://btonylee.github.io//2014/12/12/test.html</guid>
         
         
       </item>
@@ -36,8 +36,8 @@ To add new posts, simply add a file in the &lt;code&gt;_posts&lt;/code&gt; direc
 &lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/mojombo/jekyll&quot;&gt;Jekyll&amp;#39;s GitHub repo&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Sun, 10 Nov 2013 18:18:00 +0800</pubDate>
-        <link>http://jekyll-demo.coding.io//thriller/comedy/horror/2013/11/10/welcome-to-jekyll.html</link>
-        <guid isPermaLink="true">http://jekyll-demo.coding.io//thriller/comedy/horror/2013/11/10/welcome-to-jekyll.html</guid>
+        <link>http://btonylee.github.io//thriller/comedy/horror/2013/11/10/welcome-to-jekyll.html</link>
+        <guid isPermaLink="true">http://btonylee.github.io//thriller/comedy/horror/2013/11/10/welcome-to-jekyll.html</guid>
         
         
         <category>thriller</category>

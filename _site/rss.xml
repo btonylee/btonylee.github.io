@@ -5,13 +5,13 @@
   xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
   xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
   <channel>
-    <title>Tony@博客</title>
-    <link>http://jekyll-demo.coding.io</link>
-    <description>RSS feed for Tony@博客</description>
+    <title>嗖~世界</title>
+    <link>http://btonylee.github.io</link>
+    <description>RSS feed for 嗖~世界</description>
     <pubDate>Fri, 12 Dec 2014 00:00:00 +0800</pubDate>
     <item>
       <title>Test</title>
-      <link>http://jekyll-demo.coding.io/2014/12/12/test.html</link>
+      <link>http://btonylee.github.io/2014/12/12/test.html</link>
       <description>&lt;p&gt;test&lt;/p&gt;
 </description>
       <pubDate>Fri, 12 Dec 2014 00:00:00 +0800</pubDate>
@@ -19,7 +19,7 @@
     </item>
     <item>
       <title>Welcome to Jekyll!</title>
-      <link>http://jekyll-demo.coding.io/thriller/comedy/horror/2013/11/10/welcome-to-jekyll.html</link>
+      <link>http://btonylee.github.io/thriller/comedy/horror/2013/11/10/welcome-to-jekyll.html</link>
       <description>&lt;p&gt;You&amp;#39;ll find this post in your &lt;code&gt;_posts&lt;/code&gt; directory - edit this post and re-build (or run with the &lt;code&gt;-w&lt;/code&gt; switch) to see your changes!
 To add new posts, simply add a file in the &lt;code&gt;_posts&lt;/code&gt; directory that follows the convention: YYYY-MM-DD-name-of-post.ext.&lt;/p&gt;
 </description>
