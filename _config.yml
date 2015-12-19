@@ -110,7 +110,7 @@ duoshuo_share:
 #---------------------------------------------------------------
 # Baidu analysis
 baidu_analysis:
-  enable: true
+  enable: false
   token: "37a3e759e3a05b9fcf4cecbf42e32c4c"
 
 # Google analysis
