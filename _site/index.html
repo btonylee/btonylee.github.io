@@ -1,170 +1,245 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<html lang="zh_cn">
+  <head>
+    <title>Tony的博客</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>嗖~世界 - </title>
-    <meta name="description" content="" />
+    <meta name="keywords" content=", ,Tony" />
+    <meta name="description" content=",   " />
 
-    <meta name="HandheldFriendly" content="True" />
-    <meta name="MobileOptimized" content="320" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
 
-    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
-    <!-- Customisation  -->
-    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+  <!--Font awesome-->
+  <link href="/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
+  <!-- The pithy main css -->
+  <link rel="stylesheet" href="/assets/stylesheet/pithy.css">
+
+
+  <!--[if lt IE 9]>
+  <script src="https://cdn.bootcss.com/html5shiv/3.7.2/html5shiv-printshiv.js"></script>
+  <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.js"></script>
+  <![endif]-->
+  <link rel="alternate" type="application/rss+xml" title="Tony的博客" href="/feed.xml" />
 </head>
-<body class="home-template">
 
-    <header class="main-header no-cover">
-    <nav class="main-nav overlay clearfix">
-            
-    </nav>
-    <div class="vertical">
-        <div class="main-header-content inner">
-            <h1 class="page-title">嗖~世界</h1>
-            <h2 class="page-description">
-                
-                 <a href='/about.html'> About me </a> 
-            </h2>
+<body>
+  <nav class="navbar navbar-pithy" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button aria-expanded="false" class="navbar-toggle collapsed" data-target="#pithy-navbar" data-toggle="collapse" type="button">
+                <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand" href="/">Tony的博客</a>
         </div>
+
+        <div class="collapse navbar-collapse" id="pithy-navbar">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="/">首页</a>
+                </li>
+                <li class="active">
+                    <a href="/about/">关于</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
     </div>
-    <a class="scroll-down icon-arrow-left" href="#content" data-offset="-45"><span class="hidden">Scroll Down</span></a>
-</header>
-
-
-<main id="content" class="content" role="main">
-
-
-    <div class="extra-pagination inner">
-        <nav class="pagination" role="pagination">
-    
-    <span class="page-number"> Page 1 of 1 </span>
-     
+    <!-- /.container -->
 </nav>
+
+
+  <div class="container page-content">
+    <div class="col-md-9 col-content">
+    
+      <!-- this is post list -->
+<div class="panel panel-pithy posts">
+    <div class="panel-heading">
+      <h3 class="title">
+        <a href="/2015/11/19/qemu-instruction"><i class="fa fa-bookmark-o"></i>QEMU的使用和联合gdb调试</a>
+      </h3>
     </div>
+    <div class="panel-body excerpt">
+        
+          <p>QEMU是一款虚拟机软件，可以运行在x86架构的操作系统（包括windows、linux和UNIX）上，作用是虚拟一个全新的操作系统。平常，我们更常用Virtual Box来虚拟系统，但是不可或缺的是，qemu可以与gdb联合调试，是在学习操作系统原理时的重要工具。</p>
+
+        
+    </div>
+    <div class="panel-footer operate">
+        <div class="pull-right">
+          <span class="time">
+              <i class="fa fa-clock-o"></i> 2015-11-19
+            </span>
+          <a class="read" href="/2015/11/19/qemu-instruction#post-content">
+            <i class="fa fa-gg"></i> 阅读全文
+          </a>
+          <a class="comment" href="/2015/11/19/qemu-instruction#post-comment">
+            <i class="fa fa-comment-o"></i> 评论
+          </a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
 
     
-
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/2014/12/12/test.html">Test</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>test</p>
- <a class="read-more" href="/2014/12/12/test.html">&raquo;</a>
-        </section>
-        <footer class="post-meta">
-            
-                <img class="author-thumb" src="/assets/images/profile.png" alt="Author's profile picture" nopin="nopin" />
-                tuo.li
-            
-            
-            <time class="post-date" datetime="2014-12-12">
-                12 Dec 2014
-            </time> 
-        </footer>
-    </article>
-
-    <!-- Capser below -->
-<!--     <article class="">
-    <header class="post-header">
-        <h2 class="post-title"><a href="">}</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p> <a class="read-more" href="">&raquo;</a></p>
-    </section>
-    <footer class="post-meta">
-        <img class="author-thumb" src="" alt="Author image" nopin="nopin" />
+      <!-- this is post list -->
+<div class="panel panel-pithy posts">
+    <div class="panel-heading">
+      <h3 class="title">
+        <a href="/2013/11/10/welcome-to-jekyll"><i class="fa fa-bookmark-o"></i>Welcome to Jekyll!</a>
+      </h3>
+    </div>
+    <div class="panel-body excerpt">
         
-        
-        <time class="post-date" datetime=""></time>
-    </footer>
-    </article> -->
-    <!--  -->
-
-    
-
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/thriller/comedy/horror/2013/11/10/welcome-to-jekyll.html">Welcome to Jekyll!</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>You&#39;ll find this post in your <code>_posts</code> directory - edit this post and re-build (or run with the <code>-w</code> switch) to see your changes!
+          <p>You&#39;ll find this post in your <code>_posts</code> directory - edit this post and re-build (or run with the <code>-w</code> switch) to see your changes!
 To add new posts, simply add a file in the <code>_posts</code> directory that follows the convention: YYYY-MM-DD-name-of-post.ext.</p>
- <a class="read-more" href="/thriller/comedy/horror/2013/11/10/welcome-to-jekyll.html">&raquo;</a>
-        </section>
-        <footer class="post-meta">
-            
-                <img class="author-thumb" src="/assets/images/profile.png" alt="Author's profile picture" nopin="nopin" />
-                tuo.li
-            
-             
-                on thriller, comedy, and horror 
-            
-            <time class="post-date" datetime="2013-11-10">
-                10 Nov 2013
-            </time> 
-        </footer>
-    </article>
 
-    <!-- Capser below -->
-<!--     <article class="">
-    <header class="post-header">
-        <h2 class="post-title"><a href="">}</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p> <a class="read-more" href="">&raquo;</a></p>
-    </section>
-    <footer class="post-meta">
-        <img class="author-thumb" src="" alt="Author image" nopin="nopin" />
         
+    </div>
+    <div class="panel-footer operate">
+        <div class="pull-right">
+          <span class="time">
+              <i class="fa fa-clock-o"></i> 2013-11-10
+            </span>
+          <a class="read" href="/2013/11/10/welcome-to-jekyll#post-content">
+            <i class="fa fa-gg"></i> 阅读全文
+          </a>
+          <a class="comment" href="/2013/11/10/welcome-to-jekyll#post-comment">
+            <i class="fa fa-comment-o"></i> 评论
+          </a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+    
+    <nav>
+        <ul class="pagination pagination-posts">
+          
+        </ul>
+    </nav>
+</div>
+<div class="col-md-3 col-sidebar">
+    <div class="panel panel-pithy author">
+    <div class="panel-heading avastar">
+        <img src="assets/images/logo.png" alt="btonylee"/>
+    </div>
+    <div class="panel-body">
+        怕什么真理无穷 进一寸有一寸的欢喜
+    </div>
+    <div class="panel-footer social">
+        <ul>
+            
+            <li>
+                <a href="https://github.com/btonylee" target="_blank"><i class="fa fa-github"></i></a>
+            </li>
+            
+            <li>
+                <a href="/feed.xml" target="_blank"><i class="fa fa-rss"></i></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+    <!-- sidebar:category list -->
+<div class="panel panel-default categories">
+    <div class="panel-heading title">
+        分类列表
+    </div>
+    <div class="panel-body list">
+        <ul>
+          
+          <li>
+              <a class="catelink" href="/categories/操作系统">
+                  操作系统&nbsp;<span class="count">[1]</span>
+              </a>
+          </li>
+
+          
+        </ul>
+    </div>
+</div>
+
+    <!-- sidebar: tag list -->
+<div class="panel panel-default tags">
+    <div class="panel-heading title">
+        标签云
+    </div>
+    <div class="panel-body list">
         
-        <time class="post-date" datetime=""></time>
-    </footer>
-    </article> -->
-    <!--  -->
+            <a class="taglink" href="/tag/#QEMU" data-target-cate="#QEMU">
+                QEMU
+            </a>
+        
+            <a class="taglink" href="/tag/#操作系统" data-target-cate="#操作系统">
+                操作系统
+            </a>
+        
+            <a class="taglink" href="/tag/#gdb" data-target-cate="#gdb">
+                gdb
+            </a>
+        
+    </div>
+</div>
 
-    
+</div>
 
-    <nav class="pagination" role="pagination">
-    
-    <span class="page-number"> Page 1 of 1 </span>
-     
-</nav>
+  </div>
 
-</main>
+  <footer>
+  <div class="text-center">
+    © 2014-2030 All rights reserved.
+    Made with <a href="http://jekyllrb.com/" target="_blank">Jekyll</a>
+    and <i class="fa fa-heart"></i> by <a href="https://github.com/guovz/jekyll-pithy" target="_blank">Pithy</a>
+  </div>
+  <div class="totop" data-toggle="totop">
+      <i class="fa fa-chevron-up"></i>
+  </div>
+</footer>
 
-    <footer class="site-footer clearfix">
-      <section class="copyright">
-        <a href="/">嗖~世界</a> &copy; 
-               &bull; All rights reserved.
-      </section>
-      <section class="poweredby">Made with Jekyll using 
-        <a href="http://github.com/rosario/kasper">Kasper theme</a>
-      </section>
-    </footer>
-    
-    <script type="text/javascript" src="/assets/js/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
-    <script type="text/javascript" src="/assets/js/index.js"></script>
 
-    <!-- Google Analytics Tracking code -->
-    <script type="text/javascript">
+  <!--the js include-->
+<script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/script/pithy.js"></script>
 
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
-      _gaq.push(['_trackPageview']);
+<!--
+  the site comment script
+-->
 
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"btonylee"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+       || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
 
-    </script>   
+
+
+
+<!--
+  the site analysis script
+-->
+
+  <!-- baidu analysis -->
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?your baidu analysis token";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
 </body>
 </html>
