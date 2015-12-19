@@ -1,5 +1,7 @@
 source 'https://ruby.taobao.org'
-gem 'jekyll'
-gem 'i18n'
-gem 'jekyll-paginate'
-gem 'redcarpet'
+
+require 'json'
+require 'open-uri'
+versions = JSON.parse(open('https://pages.github.com/versions.json').read)
+
+gem 'github-pages', versions['github-pages']

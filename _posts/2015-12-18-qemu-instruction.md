@@ -12,7 +12,7 @@ QEMU是一款虚拟机软件，可以运行在x86架构的操作系统（包括w
 ###安装qemu
 在上面提到的所有操作系统中，都可以通过编译代码的方式来安装qemu，具体可以参见[官方文档][qemu-wiki]。
 在Ubuntu上可以直接通过如下方式安装:
-{% highlight ruby %}
+{% highlight bash %}
 sudo apt-get install qemu
 {% endhighlight %}
 在Mac上也可以通过homebrew快速安装。
@@ -20,13 +20,13 @@ sudo apt-get install qemu
 ###启动qemu
 
 新安装qemu后可能会发现并不能找到qemu命令，但是可以找到qemu-system-i386，一般是在目录/usr/bin, 可以执行来建立软连接。
-{% highlight ruby %}
+{% highlight bash %}
 sudo ln -s /usr/bin/qemu-system-i386 /usr/bin/qemu
 {% endhighlight %}
 全部的命令参数可以参考[Qemu-doc][qemu-doc]
 ###联合gdb调试
 若要调试操作系统的内核代码，可以执行如下的命令
-{% highlight ruby %}
+{% highlight bash %}
 qemu -S -s -hda linux.img -D logfile -monitor stdio
 {% endhighlight %}
 简单解释一下上面几个参数，
@@ -42,7 +42,7 @@ qemu -S -s -hda linux.img -D logfile -monitor stdio
 `-monitor dev` 重定向 monitor 到主机设备 dev 中
 
 用gdb调试可以执行如下命令
-{% highlight ruby %}
+{% highlight bash %}
 file bar.o
 target remote :1234
 break fooFunction

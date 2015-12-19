@@ -10,13 +10,13 @@ layout: default
                 </h3>
                 <ul class="info">
                     <li>
-                      作者<span class="author">{{ page.author }}</span>
+                      作者 <span class="author">{{ page.author }}</span>
                     </li>
                     <li>
-                      发布时间{{ page.date | date: "%Y年%m月%d日" }}
+                      发布时间 {{ page.date | date: "%Y年%m月%d日" }}
                     </li>
                     <li>
-                      Tag
+                      Tag 
                      {% for tag in page.tags %}
                          <a class="tag" href="{{site.baseurl}}/tag/#{{ tag }}">{{ tag }}</a>
                      {% endfor %}
