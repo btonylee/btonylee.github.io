@@ -16,6 +16,11 @@ module Jekyll
       "error"
     end
 
+    def translate(input)
+        load_translations
+        I18n.t input
+    end
+
     def load_translations
       if I18n.backend.send(:translations).empty?
         I18n.backend.load_translations Dir[File.join(File.dirname(__FILE__),'../_locales/*.yml')]
