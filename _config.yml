@@ -28,20 +28,20 @@ locale: "zh_CN"
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and baseurl as '/child/'
-url: ""
+url: "http://lituoweb.cn"
 baseurl: ""
 permalink: /:year/:month/:day/:title
 
 
 # Pagination
 ## Set per_page to 0 to disable pagination
-paginate: 5
+paginate: 8
 paginate_path: "/page:num/"
 
 
 # Writing
-markdown: redcarpet
-highlighter: pygments
+markdown: "redcarpet"
+highlighter: "pygments"
 # highlighter: 'pygments'
 # kramdown:
 #   input:  GFM
@@ -111,7 +111,7 @@ duoshuo_share:
 # Baidu analysis
 baidu_analysis:
   enable: true
-  token: "your baidu analysis token"
+  token: "37a3e759e3a05b9fcf4cecbf42e32c4c"
 
 # Google analysis
 google_analysus:
