@@ -43,11 +43,11 @@ paginate_path: "/page:num/"
 markdown: "redcarpet"
 # highlighter: "pygments"
 highlighter: 'pygments'
-kramdown:
-  input:  GFM
-  enable_coderay: true
-  coderay:
-    coderay_line_numbers:  nil
+#kramdown:
+#  input:  GFM
+#  enable_coderay: true
+#  coderay:
+#    coderay_line_numbers:  nil
 
 # RSS
 rss:
