@@ -16,9 +16,13 @@ module Jekyll
 
     def generate(site)
       if site.layouts.key? 'category'
-            dir = 'categories'
-            site.categories.each do |category|
-            site.pages << CategoryPage.new(site, site.source, File.join(dir, category.first), category)
+        dir = 'categories'
+        site.categories.each do |category|
+            categoryEn = site.config['convert'][category.first]
+            if categoryEn == nil
+                categoryEn = category.first
+            end
+            site.pages << CategoryPage.new(site, site.source, File.join(dir, categoryEn), category)
         end
       end
     end
