@@ -1,0 +1,13 @@
+---
+layout: default
+---
+<div class="col-md-9 col-content">
+    <section class="category">
+        {% for post in site.categories.["工具"] %}
+        {% include posts.html%}
+        {% endfor %}
+    </section>
+</div>
+<div class="col-md-3 col-sidebar">
+    {% include sidebar_categories.html %}
+</div>
