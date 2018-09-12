@@ -108,24 +108,25 @@
 
 
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+  <meta name="description" content="数据仓库的分层是在搭建数据仓库的时候最先考虑的问题之一，决定了后面的落地步骤是否顺利。之前我们在用金矿到黄金首饰的制作过程类比数据仓库的时候，就提到了数据在处理的各个步骤，这些步骤反映在数据仓库上就是分层设计。需要注意的是，数据仓库的分层是一个偏向工程化的概念，在不同的公司、不同业务、不同数据场景下，最优的分层设计可能会有差异。这篇文章后面讲到的只是对在工作中实际设计情况和了解到业内有限数量的处理">
+<meta name="keywords" content="数据仓库">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://btonylee.github.io/article/hello-world/index.html">
+<meta property="og:title" content="数据仓库分层和事实表设计">
+<meta property="og:url" content="http://btonylee.github.io/article/data-warehouse-layer/index.html">
 <meta property="og:site_name" content="LT Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+<meta property="og:description" content="数据仓库的分层是在搭建数据仓库的时候最先考虑的问题之一，决定了后面的落地步骤是否顺利。之前我们在用金矿到黄金首饰的制作过程类比数据仓库的时候，就提到了数据在处理的各个步骤，这些步骤反映在数据仓库上就是分层设计。需要注意的是，数据仓库的分层是一个偏向工程化的概念，在不同的公司、不同业务、不同数据场景下，最优的分层设计可能会有差异。这篇文章后面讲到的只是对在工作中实际设计情况和了解到业内有限数量的处理">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2018-09-12T02:21:27.000Z">
+<meta property="og:updated_time" content="2018-09-12T03:11:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+<meta name="twitter:title" content="数据仓库分层和事实表设计">
+<meta name="twitter:description" content="数据仓库的分层是在搭建数据仓库的时候最先考虑的问题之一，决定了后面的落地步骤是否顺利。之前我们在用金矿到黄金首饰的制作过程类比数据仓库的时候，就提到了数据在处理的各个步骤，这些步骤反映在数据仓库上就是分层设计。需要注意的是，数据仓库的分层是一个偏向工程化的概念，在不同的公司、不同业务、不同数据场景下，最优的分层设计可能会有差异。这篇文章后面讲到的只是对在工作中实际设计情况和了解到业内有限数量的处理">
 
 
 
 
 
 
-  <link rel="canonical" href="http://btonylee.github.io/article/hello-world/"/>
+  <link rel="canonical" href="http://btonylee.github.io/article/data-warehouse-layer/"/>
 
 
 
@@ -135,7 +136,7 @@
   };
 </script>
 
-  <title>Hello World | LT Blog</title>
+  <title>数据仓库分层和事实表设计 | LT Blog</title>
   
 
 
@@ -280,7 +281,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://btonylee.github.io/article/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://btonylee.github.io/article/data-warehouse-layer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Li Tuo">
@@ -297,7 +298,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World
+          <h1 class="post-title" itemprop="name headline">数据仓库分层和事实表设计
               
             
           </h1>
@@ -322,7 +323,7 @@
                 
               
 
-              <time title="Created: 2018-08-24 18:32:12" itemprop="dateCreated datePublished" datetime="2018-08-24T18:32:12+08:00">2018-08-24</time>
+              <time title="Created: 2018-09-12 10:57:38" itemprop="dateCreated datePublished" datetime="2018-09-12T10:57:38+08:00">2018-09-12</time>
             
 
             
@@ -337,8 +338,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/article/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/article/hello-world/" itemprop="commentCount"></span>
+                <a href="/article/data-warehouse-layer/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/article/data-warehouse-layer/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -366,16 +367,52 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+        <p>数据仓库的分层是在搭建数据仓库的时候最先考虑的问题之一，决定了后面的落地步骤是否顺利。之前我们在用金矿到黄金首饰的制作过程类比数据仓库的时候，就提到了数据在处理的各个步骤，这些步骤反映在数据仓库上就是分层设计。需要注意的是，数据仓库的分层是一个偏向工程化的概念，在不同的公司、不同业务、不同数据场景下，最优的分层设计可能会有差异。这篇文章后面讲到的只是对在工作中实际设计情况和了解到业内有限数量的处理方案的一个融合。</p>
 <a id="more"></a>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<h3 id="1-分层设计"><a href="#1-分层设计" class="headerlink" title="1. 分层设计"></a>1. 分层设计</h3><p>一个比较推荐的方案是，将整个数据仓库分成四层。从下往上分别是，操作数据层、数据仓库明细层、数据仓库汇总层和应用数据层。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">数据仓库分层</th>
+<th style="text-align:center">缩写</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">应用数据层</td>
+<td style="text-align:center">ADS </td>
+</tr>
+<tr>
+<td style="text-align:center">数据仓库汇总层</td>
+<td style="text-align:center">DWS </td>
+</tr>
+<tr>
+<td style="text-align:center">数据仓库明细层</td>
+<td style="text-align:center">DWD </td>
+</tr>
+<tr>
+<td style="text-align:center">操作数据层</td>
+<td style="text-align:center">ODS </td>
+</tr>
+</tbody>
+</table>
+<p>对于上层应用数据获取，我比较赞同的方案是，推荐尽量从更加上层读取，但是不需要设置除技术原因外的其他限制。这句话的意思是，如果有一个数据应用需要从数据仓库获取数据，那更加建议是从尽量上层读取数据，如果有需要，这个数据应用从比较下层直接获取数据也是允许的。如果数据仓库是良性发展的，在数据应用设计者了解数据仓库之后，选择从上层读取数据应该是自然的选择。当然，这个是理想的情况，大多数在落地过程可能根据情况有不同选择。在实际执行过程中，可能某一层或许多层的建设还未完成，这时候就需要数据仓库工程师和数据应用的设计者一起综合决定是使用哪一层数据，是否需要补充完善更高一层。也有可能因为计算资源或者存储组件的原因，需要更多的数据访问限制。再次引用金矿的例子说明这个问题，在金店里的黄金首饰已经很全面很吸引人的前提下，提供深层次的产品定制服务是可以努力的方向，但是具体做到什么程度，还是要取决于能力和资源。</p>
+<h3 id="操作数据层ODS"><a href="#操作数据层ODS" class="headerlink" title="操作数据层ODS"></a>操作数据层ODS</h3><p>ODS层的作用是汇集各种数据源，以及非常初步的数据清洗。在普遍的业务场景中，数据仓库的数据来源是多样的，例如mysql、oracle、nginx访问记录等。不同来源、不同格式的数据通过日志收集系统和数据同步系统的汇集到ODS。ODS层是数据仓库数据的统一入口，所有数据仓库的其他层的数据都是对ODS数的进行一次或者多次ETL后生成的。</p>
+<p>为了保证ODS层的数据对上层一致，要保证存储规范这一核心要素。在实践中，需要设置一定的数据准入规范，并且ETL程序需要跟++日志收集系统++和++数据同步系统++配合完成。比较好的方案配合++元数据中心++来配合定义和审核数据规范。在初期数据来源单一，ODS层就退化为操作数据在数据仓库中的一份拷贝。</p>
+<h3 id="数据仓库明细层DWD"><a href="#数据仓库明细层DWD" class="headerlink" title="数据仓库明细层DWD"></a>数据仓库明细层DWD</h3><p>数据仓库明细层采用kimball维度建模，事实表粒度是每个操作或者每个事务一条数据，所以被称作是明细层。</p>
+<p>在kimball的维度建模方法中，提到对事实表的分类。我把不同类型的事实表划分到了不同的数据层中，其中被划分到明细层的有事务事实表、累积快照事实表、无事实的事实表。</p>
+<ul>
+<li>事务事实表。每条数据的粒度是一个事务，或者可以简化看到是一次操作，跟ODS层数据粒度基本一样。事务发生后不需要更改。</li>
+<li>累积快照事实表。每条数据的粒度是一个事务管道，可以理解为一个业务流程，例如每条是一个订单从生成到售后的一整个过程。这条数据随时可能会发生变动。</li>
+<li>无事实的事实表。有些事实本身是一个事件，没有任何数字度量，被称为无事实的事实表。例如点击了一个独立的功能按钮。</li>
+</ul>
+<p>其中累计快照事实表相对不常用，因为一般在工程实现角度，我们不会希望事实表数据会发生变化，所以如果使用累计快照事实表一般会选择在业务流程结束后再进行，这要求流程不能时间跨度太长，并且对时效性的要求也不能太高。</p>
+<h3 id="数据仓库汇总层DWS"><a href="#数据仓库汇总层DWS" class="headerlink" title="数据仓库汇总层DWS"></a>数据仓库汇总层DWS</h3><p>汇总层包含是在各个维度的汇总的度量形成的事实表，也可以分为轻度汇总和深度汇总两层。</p>
+<p>kimball提到的周期快照事实表就是属于汇总层。周期快照事实表的含义是，在一定的时候周期上，例如每天、每周、每月对度量做汇总。事实表的每一行是每个汇总周期的计算结果，计算完成后的数据不需要再更新。</p>
+<p>但是一般来说，只在时间的层面上的汇总是不够的，除非所有的度量都是可加的，否则不能满足在其他维度上的上卷下钻需求。事实表的度量字段分为三种，可加、半可加和不可加。可加事实度量是在所有维度上都能汇总的度量，例如订单次数，可以把每个月的订单数相加得到整个月的订单数，也可以把各省的订单数相加得到全部的订单数。半可加度量是可以在部分维度上汇总的度量，例如订单人数，我们不能通过每天的订单人数得到整月的，但是可以通过不同性别的订单人数得到全部的。不可加是不能汇总的事实度量，例如部分比率。周期快照事实表的事实字段如果是不可加的，那在除时间外的其他维度上，我们只能得到最细粒度的度量结果。</p>
+<p>更进一步的汇总层方案是建立多维度cube，对指定维度的不同层级、不同粒度预计算所有的度量值，以多维的方式存储起来。</p>
+<p>还有另外一种DWS层的实现方案，就是把所有的维度全部退化掉，根据主题形成一张张的大宽表，每个宽表中的指标都是根据业务需求预先定义好的，这里说的指标是包含统计维度的，例如其中一个指标是“一天内上海的订单数”或者“7天内的老客户复购率”等，ETL程序要做的就是周期性地按照指标系统的定义统计所需指标，这个统计可以在DWD层或者周期快照事实表上执行。</p>
+<h3 id="应用数据层ADS"><a href="#应用数据层ADS" class="headerlink" title="应用数据层ADS"></a>应用数据层ADS</h3><p>应用层是根据数据应用的需要，将数据处理或者抽取出来的一层。在实际使用中，应用层并不是物理层面上的一次，仅仅停留在概念的层面。对于不同的数据应用，例如商业报表、用户画像或者推荐等，使用的存储介质和数据规范可能各不相同。</p>
 
       
     </div>
@@ -394,6 +431,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/数据仓库/" rel="tag"># 数据仓库</a>
+          
+        </div>
+      
 
       
       
@@ -403,15 +446,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/article/kimball-dimensional-modeling/" rel="next" title="kimball的维度建模">
+                <i class="fa fa-chevron-left"></i> kimball的维度建模
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/article/what-kind-of-data-warehouse-do-we-need/" rel="prev" title="我们需要什么样的数据仓库">
-                我们需要什么样的数据仓库 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -537,7 +580,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-分层设计"><span class="nav-text">1. 分层设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作数据层ODS"><span class="nav-text">操作数据层ODS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据仓库明细层DWD"><span class="nav-text">数据仓库明细层DWD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据仓库汇总层DWS"><span class="nav-text">数据仓库汇总层DWS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用数据层ADS"><span class="nav-text">应用数据层ADS</span></a></li></ol></div>
             
 
           </div>

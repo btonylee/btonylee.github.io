@@ -64,7 +64,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=6.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=6.3.0">
 
 
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
@@ -117,7 +117,7 @@
 <meta property="og:description" content="数据仓库的概念已经提出很多年，在之前还有一个“决策支撑系统”的叫法。在这漫长的岁月里，工程师和学者提出了很多的方法论和技巧。到了现在，大数据的技术栈到了以hadoop为主的年代，kimball的维度建模理论是被接受和使用最广泛的方法论。 维度建模的概念并不是kimball的原创，是由他带到了数据仓库的建设理论之中。所以这整套理论的核心，也不仅仅是维度建模的思想，还有附带的一系列原则、方法和技巧。当">
 <meta property="og:locale" content="zh-cn">
 <meta property="og:image" content="http://btonylee.github.io/images/article/star-model.png">
-<meta property="og:updated_time" content="2018-09-10T08:26:21.000Z">
+<meta property="og:updated_time" content="2018-09-11T11:35:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kimball的维度建模">
 <meta name="twitter:description" content="数据仓库的概念已经提出很多年，在之前还有一个“决策支撑系统”的叫法。在这漫长的岁月里，工程师和学者提出了很多的方法论和技巧。到了现在，大数据的技术栈到了以hadoop为主的年代，kimball的维度建模理论是被接受和使用最广泛的方法论。 维度建模的概念并不是kimball的原创，是由他带到了数据仓库的建设理论之中。所以这整套理论的核心，也不仅仅是维度建模的思想，还有附带的一系列原则、方法和技巧。当">
@@ -325,19 +325,25 @@
                 
               
 
-              <time title="Created: 2018-09-10 16:14:36 / Modified: 16:26:21" itemprop="dateCreated datePublished" datetime="2018-09-10T16:14:36+08:00">2018-09-10</time>
+              <time title="Created: 2018-09-10 16:14:36" itemprop="dateCreated datePublished" datetime="2018-09-10T16:14:36+08:00">2018-09-10</time>
             
 
-            
-              
-
-              
             
           </span>
 
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/article/kimball-dimensional-modeling/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/article/kimball-dimensional-modeling/" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -366,19 +372,20 @@
         <p>数据仓库的概念已经提出很多年，在之前还有一个“决策支撑系统”的叫法。在这漫长的岁月里，工程师和学者提出了很多的方法论和技巧。到了现在，大数据的技术栈到了以hadoop为主的年代，kimball的维度建模理论是被接受和使用最广泛的方法论。</p>
 <p>维度建模的概念并不是kimball的原创，是由他带到了数据仓库的建设理论之中。所以这整套理论的核心，也不仅仅是维度建模的思想，还有附带的一系列原则、方法和技巧。当然还需要注意点是，这些原则和方法大多是从实践中总结出来的。我们的主流技术栈已经不同，这些经典的内容也已经不能生硬的照搬，要根据自己的技术栈和业务特点做一些适应性的变化。不过，这并影响kimball的维度建模给我们当前的数据仓库建设工作起到了很大的参考和引导作用。</p>
 <p>这篇文章希望通过几个维度建模的核心词汇为引导，介绍维度建模对我们最有用的内容。</p>
-<h3 id="事实表和维度表"><a href="#事实表和维度表" class="headerlink" title="事实表和维度表"></a>事实表和维度表</h3><p>维度建模的方案不采用我们熟悉的三范式对数据进行建模。三范式的数据建模方式很适合操作数据库和事务数据库，但是随着业务的变复杂，三范式数据库的关联会形成一张很大的关系图，给分析人员使用带了很大的困难。</p>
+<a id="more"></a>
+<h3 id="1-事实表和维度表"><a href="#1-事实表和维度表" class="headerlink" title="1. 事实表和维度表"></a>1. 事实表和维度表</h3><p>维度建模的方案不采用我们熟悉的三范式对数据进行建模。三范式的数据建模方式很适合操作数据库和事务数据库，但是随着业务的变复杂，三范式数据库的关联会形成一张很大的关系图，给分析人员使用带了很大的困难。</p>
 <p>维度建模任务，我们所有对数据的使用都在想从某个角度得到一个度量，所以把表分成事实表和维度表两类。</p>
 <p>维度表是对环境的描述，提供了对数据分析的各种角度。事实表中则是需要被度量的内容，以及跟各种维度的关联关系。</p>
 <p>在进行维度建模的时候，一般包括这几个步骤：1. 确定业务的领域和主题； 2. 确定需要的分析维度，补充所需维度表；3. 确定事实表度量 4.ETL设计和开发</p>
-<h3 id="星型模式"><a href="#星型模式" class="headerlink" title="星型模式"></a>星型模式</h3><p>当事实表和维度表通过关联键联系到一起，数据模型就形成了星型，类似下图这样。</p>
+<h3 id="2-星型模式"><a href="#2-星型模式" class="headerlink" title="2. 星型模式"></a>2. 星型模式</h3><p>当事实表和维度表通过关联键联系到一起，数据模型就形成了星型，类似下图这样。</p>
 <p><img src="/images/article/star-model.png" alt="星型模式"></p>
 <p>星型模型的最对数据使用者非常友好，因为足够简单。在数据仓库的建设中，简单是一个很好的特征。除了星型模型之外，还有一种雪花模型，就是在维度表上关联更多的维度表。但是如果基于简答的原则，这种方式是不推荐的。例如上图中的终端地址维度，其实可以看做是跟终端维度关联的，但是我们坚持采用星型模式，因此终端地址维度也被直接关联到了事实表上。</p>
-<h3 id="一致性"><a href="#一致性" class="headerlink" title="一致性"></a>一致性</h3><p>一致性是维度建模能够成功的前提，主要分为两个方面：</p>
+<h3 id="3-一致性"><a href="#3-一致性" class="headerlink" title="3. 一致性"></a>3. 一致性</h3><p>一致性是维度建模能够成功的前提，主要分为两个方面：</p>
 <ul>
 <li>事实一致性。如果多个事实表中出现的同样的度量，他们之间的含义要是一样的，这个是数据仓库可信度的保证</li>
 <li>维度一致性。维度表的设计必须是面向这个数据仓库统一考虑的，在不同事实需要同样的分析角度时，关联的是同样的维度表。这样能够做到在汇总层面把多种事实的度量融合到一起。</li>
 </ul>
-<h3 id="敏捷开发"><a href="#敏捷开发" class="headerlink" title="敏捷开发"></a>敏捷开发</h3><p>能够支撑敏捷开发，可能是kimball维度建模能够在当今的互联网公司中大受欢迎的一个重要原因。或许在提出之初，kimball并没有把这个当做是核心特性，而现在，这种可以从下往的开发落地的特征却成了这一方法被大家采用的基础。这个也是Kimball的维度建模和Inmon的数据仓库建模方法相比最大的区别之一。</p>
+<h3 id="4-敏捷开发"><a href="#4-敏捷开发" class="headerlink" title="4. 敏捷开发"></a>4. 敏捷开发</h3><p>能够支撑敏捷开发，可能是kimball维度建模能够在当今的互联网公司中大受欢迎的一个重要原因。或许在提出之初，kimball并没有把这个当做是核心特性，而现在，这种可以从下往的开发落地的特征却成了这一方法被大家采用的基础。这个也是Kimball的维度建模和Inmon的数据仓库建模方法相比最大的区别之一。</p>
 <p>在前面的一篇文章中，我提到数据仓库的设计者需要从顶向下，面向业务整体。这跟现在我们说的维度建模的方案可以自下而上的支撑敏捷开发并不冲突。从顶往下是对数据仓库的设计者思考模式的一种建议，是希望设计者拥有业务角度的大局观，为数据仓库的建设确定一个完整的目标。这个建议对采用维度建模的数据仓库设计者更加适用。因为采用维度建模的设计者，如果缺乏业务视角，可能会导致数据仓库长期都是不完整的、不权威的。换句话说，从顶往下的模式是一种建议而不是必须遵守的规范。在实际执行落地过程中，采取维度建模的数据仓库是可以采用的敏捷的方式一步步的去完善，一步步的向完整、可信前进。</p>
 
       
@@ -423,6 +430,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/article/data-warehouse-layer/" rel="prev" title="数据仓库分层和事实表设计">
+                数据仓库分层和事实表设计 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -443,6 +454,9 @@
           </div>
           
 
+  
+    <div class="comments" id="comments">
+    </div>
   
 
 
@@ -491,7 +505,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -544,7 +558,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#事实表和维度表"><span class="nav-number">1.</span> <span class="nav-text">事实表和维度表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#星型模式"><span class="nav-number">2.</span> <span class="nav-text">星型模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一致性"><span class="nav-number">3.</span> <span class="nav-text">一致性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#敏捷开发"><span class="nav-number">4.</span> <span class="nav-text">敏捷开发</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-事实表和维度表"><span class="nav-text">1. 事实表和维度表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-星型模式"><span class="nav-text">2. 星型模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-一致性"><span class="nav-text">3. 一致性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-敏捷开发"><span class="nav-text">4. 敏捷开发</span></a></li></ol></div>
             
 
           </div>
@@ -592,6 +606,24 @@
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="Total Visitors">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="Total Views">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
 
 
 
@@ -712,6 +744,31 @@
 
 
 
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'LRbQcRrI23LOmA9jnCNw0iW4-gzGzoHsz',
+        appKey: 'ajh1WzNAms0u4RgSxkEchNMK',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
 
 
   
@@ -725,6 +782,21 @@
   
 
   
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
 
   
 
