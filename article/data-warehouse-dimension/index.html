@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-cn,en,default">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="在维度建模过程中，维度表的设计和生成是非常重要的一环。维度表中的内容反映的是事实发生的环境，对数据仓库系统可解释性和可用性起到了很重要的作用。可以说，维度表设计的好坏很大程度上决定了数据仓库的成败。在维度表的设计和字段的解释说明上，是值得投入大量的精力的。 在实际的设计过程中，需要考虑的问题有很多，这篇文章提的三点在工作中比较常见和重要的。">
+<meta name="keywords" content="数据仓库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kimball维度建模的维度表技术">
+<meta property="og:url" content="http://btonylee.github.io/article/data-warehouse-dimension/index.html">
+<meta property="og:site_name" content="LT Blog">
+<meta property="og:description" content="在维度建模过程中，维度表的设计和生成是非常重要的一环。维度表中的内容反映的是事实发生的环境，对数据仓库系统可解释性和可用性起到了很重要的作用。可以说，维度表设计的好坏很大程度上决定了数据仓库的成败。在维度表的设计和字段的解释说明上，是值得投入大量的精力的。 在实际的设计过程中，需要考虑的问题有很多，这篇文章提的三点在工作中比较常见和重要的。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2018-09-13T11:07:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kimball维度建模的维度表技术">
+<meta name="twitter:description" content="在维度建模过程中，维度表的设计和生成是非常重要的一环。维度表中的内容反映的是事实发生的环境，对数据仓库系统可解释性和可用性起到了很重要的作用。可以说，维度表设计的好坏很大程度上决定了数据仓库的成败。在维度表的设计和字段的解释说明上，是值得投入大量的精力的。 在实际的设计过程中，需要考虑的问题有很多，这篇文章提的三点在工作中比较常见和重要的。">
+
+
+
+
+
+
+  <link rel="canonical" href="http://btonylee.github.io/article/data-warehouse-dimension/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>kimball维度建模的维度表技术 | LT Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LT Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://btonylee.github.io/article/data-warehouse-dimension/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Li Tuo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LT Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">kimball维度建模的维度表技术
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-09-13 19:01:25" itemprop="dateCreated datePublished" datetime="2018-09-13T19:01:25+08:00">2018-09-13</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/article/data-warehouse-dimension/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count gitment-comments-count" data-xid="/article/data-warehouse-dimension/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在维度建模过程中，维度表的设计和生成是非常重要的一环。维度表中的内容反映的是事实发生的环境，对数据仓库系统可解释性和可用性起到了很重要的作用。可以说，维度表设计的好坏很大程度上决定了数据仓库的成败。在维度表的设计和字段的解释说明上，是值得投入大量的精力的。</p>
+<p>在实际的设计过程中，需要考虑的问题有很多，这篇文章提的三点在工作中比较常见和重要的。</p>
+<a id="more"></a>
+<h3 id="1-一致性维度"><a href="#1-一致性维度" class="headerlink" title="1. 一致性维度"></a>1. 一致性维度</h3><p>Kimball在他的书中提到了一个概念是“企业数据仓库总线架构”，是一种构建企业数据仓库的方法，其核心基础就是一致性维度。一致性维度的简单说就是共享维度，对公司内所有的业务或者说事实表，统一的进行维度设计。在实践过程中，不仅包括，不同的事实表使用相同的维度表，还有不同的维度表使用相同名称相同含义的维度字段。例如，商品维度表中跟品牌相关的字段要跟品牌维度表完全一致。</p>
+<p>一致性维度一个显著的好处，就是可以跨事实表分析，可以简单的把不同事实表中的信息合并到同一张报表中。</p>
+<h3 id="2-维度的粒度"><a href="#2-维度的粒度" class="headerlink" title="2. 维度的粒度"></a>2. 维度的粒度</h3><p>维度信息一般是包含层级关系，每条维度记录对应最细粒度的一条数据。例如商品表中有“分类-品牌-商品”三层信息，每个商品对应一条数据。一般情况下，层级数据是整齐，每个商品都有自己的品牌和分类，这种情况下比较好处理。但是有些时候需要考虑维度深度不同，或者需要可以增加深度缺失记录的情况。</p>
+<p>例如，地理位置维度表的深度是参差不齐的，不同级别的城市需要的层级差别很大，在实际使用中，我们并不是把不存在的级别留空，而是对位置维度表重新设计来满足具体的使用情况。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">城市id</th>
+<th style="text-align:center">城市名</th>
+<th style="text-align:center">区名</th>
+<th style="text-align:center">所属地级市</th>
+<th style="text-align:center">所属省份 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">黄浦区</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">上海</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">苏州</td>
+<td style="text-align:center">姑苏区</td>
+<td style="text-align:center">苏州</td>
+<td style="text-align:center">江苏</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">昆山</td>
+<td style="text-align:center">昆山</td>
+<td style="text-align:center">苏州</td>
+<td style="text-align:center">江苏</td>
+</tr>
+</tbody>
+</table>
+<p>还有情况是需要额外添加深度缺失的记录，来适应事实中可能的字段缺失。例如，我们有一个页面位置维度表，用来描述页面上每个具体的问题，包括大区域、小区域和位置索引三个层级，但是位置索引并不是在所以的操作源数据中都存在，需要增加深度缺失的记录。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">位置id</th>
+<th style="text-align:center">大区域</th>
+<th style="text-align:center">小区域</th>
+<th style="text-align:center">位置索引 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">推荐</td>
+<td style="text-align:center">精彩推荐</td>
+<td style="text-align:center">1 </td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">推荐</td>
+<td style="text-align:center">精彩推荐</td>
+<td style="text-align:center">2 </td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">推荐</td>
+<td style="text-align:center">精彩推荐</td>
+<td style="text-align:center">未知 </td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-缓慢变化维"><a href="#3-缓慢变化维" class="headerlink" title="3. 缓慢变化维"></a>3. 缓慢变化维</h3><p>最后说一下缓慢变化维，这个也是维度设计中必须要考虑的问题。业务数据中某些字段会随着时间变化是正常的，数据仓库需要用缓慢变化维的方式来处理这种变化，常见的处理方式有如下几种：</p>
+<h4 id="3-1-直接覆盖"><a href="#3-1-直接覆盖" class="headerlink" title="3.1 直接覆盖"></a>3.1 直接覆盖</h4><p>根据业务的需求，某些字段的值可能只需要直接修改就好。例如商品名称，如果只是为了在报表中展示用，而名称的修改只可能是文字的优化，那就直接改为新名字就好。但是要注意名称直接变化对统计可能带来的影响，评估基于旧名称生成的数据是否需要重新生成。</p>
+<h4 id="3-2-多列属性"><a href="#3-2-多列属性" class="headerlink" title="3.2 多列属性"></a>3.2 多列属性</h4><p>多列属性就是通过多列的方式去存储不同时期的值，适用面比较窄，主要是一些变更次数严格限制，或者只关心最近变更的情形。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">用户id</th>
+<th style="text-align:center">用户名(userName)</th>
+<th style="text-align:center">曾用名 (oldUserName)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">u001</td>
+<td style="text-align:center">张三</td>
+<td style="text-align:center">张小三 </td>
+</tr>
+<tr>
+<td style="text-align:center">u002</td>
+<td style="text-align:center">李明</td>
+<td style="text-align:center">null </td>
+</tr>
+</tbody>
+</table>
+<h4 id="3-3-增加新行"><a href="#3-3-增加新行" class="headerlink" title="3.3 增加新行"></a>3.3 增加新行</h4><p>这种处理方式是每次数据发生变更就增加一行，是一种最常见的处理缓慢变化维的方式。这样会导致同样的一个自然业务主键（例如用户id）会存在多条，那么我们就需要一个更加一般化的键来确定唯一的行，常见有有两种方式来实现。</p>
+<h5 id="3-3-1-拉链表"><a href="#3-3-1-拉链表" class="headerlink" title="3.3.1 拉链表"></a>3.3.1 拉链表</h5><p>因为每个自然键在维度表中可能有多条，需要额外的字段来标识，一种很容易想到的方式就是增加时间字段，例如</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">用户id</th>
+<th style="text-align:center">用户名</th>
+<th style="text-align:center">app版本号</th>
+<th style="text-align:center">生效时间</th>
+<th style="text-align:center">失效时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">u001</td>
+<td style="text-align:center">张三</td>
+<td style="text-align:center">3.1.2</td>
+<td style="text-align:center">2018-08-16 09:02:44</td>
+<td style="text-align:center">2018-09-10 11:23:01</td>
+</tr>
+<tr>
+<td style="text-align:center">u001</td>
+<td style="text-align:center">张三</td>
+<td style="text-align:center">3.1.3</td>
+<td style="text-align:center">2018-09-10 11:23:01</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<p>通过生效时间和失效时间字段可以成功的把维度的变化记录下来。但是拉链表在使用的时候存在一个小问题，就是每次在使用的时候都必须在sql中包含生效时间和失效时间的过滤。这个对数据分析人员是一个不算小的负担，并且可能因为忘记导致统计结果的问题。</p>
+<h5 id="3-3-2-代理键"><a href="#3-3-2-代理键" class="headerlink" title="3.3.2 代理键"></a>3.3.2 代理键</h5><p>代理键的方法就是生成一个新的键作为维度表的唯一键，一般是依次递增的数字。代理键做为跟事实表上跟维度表关联的外键，而不再是自然主键。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">代理键</th>
+<th style="text-align:center">用户id</th>
+<th style="text-align:center">用户名</th>
+<th style="text-align:center">app版本号</th>
+<th style="text-align:center">生效时间</th>
+<th style="text-align:center">失效时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">u001</td>
+<td style="text-align:center">张三</td>
+<td style="text-align:center">3.1.2</td>
+<td style="text-align:center">2018-08-16 09:02:44</td>
+<td style="text-align:center">2018-09-10 11:23:01</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">u001</td>
+<td style="text-align:center">张三</td>
+<td style="text-align:center">3.1.3</td>
+<td style="text-align:center">2018-09-10 11:23:01</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<p>上面的方式，除了代理键外，依然保留了拉链表中的生效和失效时间，也可以考虑用一个布尔值的“是否是当前生效字段”替代。</p>
+<p>代理键的方案可以让分析人员在使用过程中只需要用key关联就好，不需要关心时间字段。但是代理键也并不是十全十美的，可能带来的是自身维护的问题，在ETL中维护自增id带来的成本可能会比想象中的大。</p>
+<h4 id="3-4-增加快速变化附属维度"><a href="#3-4-增加快速变化附属维度" class="headerlink" title="3.4 增加快速变化附属维度"></a>3.4 增加快速变化附属维度</h4><p>如果维度表的列比较多，大部分的字段几乎不变，少量字段变化相对较多，那么可以考虑附属维度的方式。将变化快速的字段单独组成附属维度，与原有维度相关联，形成的数据结构类似于雪花模式。鉴于之前的文件说明过，并不推荐使用雪花模式，附属维度也应当谨慎使用。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据仓库/" rel="tag"># 数据仓库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/article/data-warehouse-layer/" rel="next" title="数据仓库分层和事实表设计">
+                <i class="fa fa-chevron-left"></i> 数据仓库分层和事实表设计
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Li Tuo</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-一致性维度"><span class="nav-text">1. 一致性维度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-维度的粒度"><span class="nav-text">2. 维度的粒度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-缓慢变化维"><span class="nav-text">3. 缓慢变化维</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-直接覆盖"><span class="nav-text">3.1 直接覆盖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-多列属性"><span class="nav-text">3.2 多列属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-增加新行"><span class="nav-text">3.3 增加新行</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-1-拉链表"><span class="nav-text">3.3.1 拉链表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-2-代理键"><span class="nav-text">3.3.2 代理键</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-增加快速变化附属维度"><span class="nav-text">3.4 增加快速变化附属维度</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Li Tuo</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Pisces</a> v6.3.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="Total Visitors">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="Total Views">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname,
+            owner: 'btonylee',
+            repo: 'btonylee.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '6dee463c9e56a026e3c4dbf0ccc03ea333410ad2',
+            
+                client_id: '8f5eb180442f9f3cf23e'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
